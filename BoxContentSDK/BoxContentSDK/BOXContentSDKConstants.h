@@ -30,6 +30,11 @@ extern NSString *const BOXAPIResourceCollections;
 extern NSString *const BOXAPIResourceEvents;
 extern NSString *const BOXAPIResourceCollaborations;
 extern NSString *const BOXAPIResourceSearch;
+extern NSString *const BOXAPIResourceMetadataTemplates;
+
+// API Metadata Scope
+extern NSString *const BOXAPIScopeEnterprise;
+extern NSString *const BOXAPIScopeGlobal;
 
 // API Subresources
 extern NSString *const BOXAPISubresourceItems;

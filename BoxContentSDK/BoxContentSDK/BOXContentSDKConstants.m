@@ -27,6 +27,11 @@ NSString *const BOXAPIResourceCollections = @"collections";
 NSString *const BOXAPIResourceEvents = @"events";
 NSString *const BOXAPIResourceCollaborations = @"collaborations";
 NSString *const BOXAPIResourceSearch = @"search";
+NSString *const BOXAPIResourceMetadataTemplates = @"metadata_templates";
+
+// API Metadata Scope
+NSString *const BOXAPIScopeEnterprise = @"enterprise";
+NSString *const BOXAPIScopeGlobal = @"global";
 
 // API Subresources
 NSString *const BOXAPISubresourceItems = @"items";
