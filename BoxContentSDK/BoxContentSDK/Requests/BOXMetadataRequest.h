@@ -6,13 +6,14 @@
 //  Copyright (c) 2015 Box. All rights reserved.
 //
 
-#import <BoxContentSDK/BoxContentSDK.h>
+#import <BoxContentSDK/BOXContentSDK.h>
 
-@interface BOXMetadataRequest : BOXRequestWithSharedLinkHeader
+@interface BOXMetadataRequest : BOXRequest
 
 @property (nonatomic, readwrite, strong) NSArray *notMatchingEtags;
 
+- (instancetype)initWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template;
 - (instancetype)initWithFileID:(NSString *)fileID template:(NSString *)template;
-- (void)performRequestWithCompletion:(BOXFileBlock)completionBlock;
+- (void)performRequestWithCompletion:(BOXMetadataBlock)completionBlock;
 
 @end

@@ -19,4 +19,12 @@
     return request;
 }
 
+- (BOXMetadataRequest *)metadataWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template
+{
+    BOXMetadataRequest *request = [[BOXMetadataRequest alloc]initWithFileID:fileID scope:scope template:template];
+    [self prepareRequest:request];
+    
+    return request;
+}
+
 @end

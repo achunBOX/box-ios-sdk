@@ -208,6 +208,8 @@
 		862EF28C1B1FA12B0044526F /* BOXAbstractSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 862EF28A1B1FA12B0044526F /* BOXAbstractSession.m */; };
 		862EF28F1B1FBA880044526F /* BOXAppUserSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 862EF28D1B1FBA880044526F /* BOXAppUserSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		862EF2901B1FBA880044526F /* BOXAppUserSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 862EF28E1B1FBA880044526F /* BOXAppUserSession.m */; };
+		8676E0BD1B2D653A00AC2677 /* BOXMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 8676E0BB1B2D653A00AC2677 /* BOXMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8676E0BE1B2D653A00AC2677 /* BOXMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 8676E0BC1B2D653A00AC2677 /* BOXMetadata.m */; };
 		86B18F001B2416B9000EAE8C /* BOXAPIAccessTokenDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 86B18EFF1B24141E000EAE8C /* BOXAPIAccessTokenDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86B18F031B241DF1000EAE8C /* BOXAPIAppUsersAuthOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 86B18F011B241DF1000EAE8C /* BOXAPIAppUsersAuthOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86B18F041B241DF1000EAE8C /* BOXAPIAppUsersAuthOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B18F021B241DF1000EAE8C /* BOXAPIAppUsersAuthOperation.m */; };
@@ -632,6 +634,8 @@
 		862EF28D1B1FBA880044526F /* BOXAppUserSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BOXAppUserSession.h; path = OAuth2/BOXAppUserSession.h; sourceTree = "<group>"; };
 		862EF28E1B1FBA880044526F /* BOXAppUserSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BOXAppUserSession.m; path = OAuth2/BOXAppUserSession.m; sourceTree = "<group>"; };
 		862EF2921B1FE7650044526F /* BOXAbstractSession_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BOXAbstractSession_Private.h; path = OAuth2/BOXAbstractSession_Private.h; sourceTree = "<group>"; };
+		8676E0BB1B2D653A00AC2677 /* BOXMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOXMetadata.h; sourceTree = "<group>"; };
+		8676E0BC1B2D653A00AC2677 /* BOXMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOXMetadata.m; sourceTree = "<group>"; };
 		86B18EFF1B24141E000EAE8C /* BOXAPIAccessTokenDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOXAPIAccessTokenDelegate.h; sourceTree = "<group>"; };
 		86B18F011B241DF1000EAE8C /* BOXAPIAppUsersAuthOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOXAPIAppUsersAuthOperation.h; sourceTree = "<group>"; };
 		86B18F021B241DF1000EAE8C /* BOXAPIAppUsersAuthOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOXAPIAppUsersAuthOperation.m; sourceTree = "<group>"; };
@@ -1442,6 +1446,8 @@
 				0E16F1111A426AB200BDDA21 /* BOXGroup.m */,
 				0EA4D2521A5C83D300196891 /* BOXAssetInputStream.h */,
 				0EA4D2531A5C83D300196891 /* BOXAssetInputStream.m */,
+				8676E0BB1B2D653A00AC2677 /* BOXMetadata.h */,
+				8676E0BC1B2D653A00AC2677 /* BOXMetadata.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1571,6 +1577,7 @@
 				C53EC2A21A38A6090007C8A7 /* BOXCommentUpdateRequest.h in Headers */,
 				86B18F031B241DF1000EAE8C /* BOXAPIAppUsersAuthOperation.h in Headers */,
 				C5D91CA61A41E46000AC8B8F /* BOXEventsAdminLogsRequest.h in Headers */,
+				8676E0BD1B2D653A00AC2677 /* BOXMetadata.h in Headers */,
 				E1CAD4D51A16C85C006ECAFD /* BOXFileDeleteRequest.h in Headers */,
 				E4FAD9DE172CE2C50052AD11 /* BOXAPIJSONOperation.h in Headers */,
 				E4FAD9E0172CE2C50052AD11 /* BOXAPIMultipartToJSONOperation.h in Headers */,
@@ -1996,6 +2003,7 @@
 				E1CAD4DC1A16C85C006ECAFD /* BOXFolderDeleteRequest.m in Sources */,
 				E1DD60361A3A8DBD00C4BD41 /* BOXBookmarkUnshareRequest.m in Sources */,
 				E1CAD4D81A16C85C006ECAFD /* BOXFileDownloadRequest.m in Sources */,
+				8676E0BE1B2D653A00AC2677 /* BOXMetadata.m in Sources */,
 				15958E431A14338A00AEBCEE /* BOXPreflightCheckRequest.m in Sources */,
 				0EA4D2561A5C83D300196891 /* BOXAssetInputStream.m in Sources */,
 				15958E1C1A14338A00AEBCEE /* BOXFileCopyRequest.m in Sources */,

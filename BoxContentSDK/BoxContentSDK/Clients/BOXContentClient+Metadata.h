@@ -9,6 +9,8 @@
 #import <BoxContentSDK/BoxContentSDK.h>
 #import "BOXMetadataRequest.h"
 
+@class BOXMetadataRequest;
+
 @interface BOXContentClient (Metadata)
 
 - (BOXMetadataRequest *)metadataWithFileID:(NSString *)fileID template:(NSString *)template;

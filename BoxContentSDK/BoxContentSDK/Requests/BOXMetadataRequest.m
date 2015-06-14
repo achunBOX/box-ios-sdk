@@ -6,12 +6,16 @@
 //  Copyright (c) 2015 Box. All rights reserved.
 //
 
+#import "BOXRequest_Private.h"
 #import "BOXMetadataRequest.h"
+#import "BOXMetadata.h"
+#import "BOXDispatchHelper.h"
 
 @interface BOXMetadataRequest ()
 
 @property (nonatomic, readwrite, strong) NSString *fileID;
 @property (nonatomic, readwrite, strong) NSString *template;
+@property (nonatomic, readwrite, strong) NSString *scope;
 
 @end
 
@@ -19,8 +23,15 @@
 
 - (instancetype)initWithFileID:(NSString *)fileID template:(NSString *)template
 {
+    return [self initWithFileID:fileID scope:BOXAPIScopeEnterprise template:template];
+}
+
+- (instancetype)initWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template
+{
     if (self = [super init]) {
         self.fileID = fileID;
+        self.scope = scope;
+        self.template = template;
     }
     
     return self;
@@ -28,29 +39,28 @@
 
 - (BOXAPIOperation *)createOperation
 {
-    NSURL *URL = [self URLWithResource:BOXAPIResourceFiles ID:self.fileID subresource:BOXAPISubresourceMetadata scope:BOXAPIScopeEnterprise template:self.template];
+    NSURL *URL = [self URLWithResource:BOXAPIResourceFiles
+                                    ID:self.fileID
+                           subresource:BOXAPISubresourceMetadata
+                                 scope:self.scope
+                              template:self.template];
     
-//    NSDictionary *queryParameters = nil; //Are there query parameters for metadata?
+    // Are there query parameters for metedata?
+    NSDictionary *queryParameters = nil;
     
     BOXAPIJSONOperation *JSONOperation = [self JSONOperationWithURL:URL
                                                          HTTPMethod:BOXAPIHTTPMethodGET
-                                              queryStringParameters:nil
+                                              queryStringParameters:queryParameters
                                                      bodyDictionary:nil
-                                                   JSONSuccessBlock:^(NSURLRequest *request, NSHTTPURLResponse *response, NSDictionary *JSONDictionary) {
-                                                        NSLog(@"It worked yay!");
-                                                    }
-                                                       failureBlock:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSDictionary *JSONDictionary) {
-                                                        NSLog(@"It filed no!");
-                                                        NSLog(@"ERROR: %@", error.description);
-                                                    }];
+                                                   JSONSuccessBlock:nil
+                                                       failureBlock:nil];
     
-//    if ([self.notMatchingEtags count] > 0) {
-//        for (NSString *notMatchingEtags in self.notMatchingEtags) {
-//            [JSONOperation.APIRequest addValue:notMatchingEtags forHTTPHeaderField:BOXAPIHTTPHeaderIfNoneMatch];
-//        }
-//    }
-    
-    [self addSharedLinkHeaderToRequest:JSONOperation.APIRequest];
+    // Ask Tom about this.
+    if ([self.notMatchingEtags count] > 0) {
+        for (NSString *notMatchingEtags in self.notMatchingEtags) {
+            [JSONOperation.APIRequest addValue:notMatchingEtags forHTTPHeaderField:BOXAPIHTTPHeaderIfNoneMatch];
+        }
+    }
     
     return JSONOperation;
 }
@@ -100,21 +110,30 @@
         }
     }
     
+    NSLog(@"URL: %@", URLString);
+    
     return [[NSURL alloc]initWithString:URLString];
 }
 
-- (void)performRequestWithCompletion:(BOXFileBlock)completionBlock
+- (void)performRequestWithCompletion:(BOXMetadataBlock)completionBlock
 {
     BOOL isMainThread = [NSThread isMainThread];
     BOXAPIJSONOperation *metadataOperation = (BOXAPIJSONOperation *)self.operation;
     
     if (completionBlock) {
-        metadataOperation.success = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSDictionary *JSONDictoinary) {
+        metadataOperation.success = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSDictionary *JSONDictionary) {
             NSLog(@"SUCCESS!");
+            [BOXDispatchHelper callCompletionBlock:^{
+                BOXMetadata *metadata = [[BOXMetadata alloc]initWithJSON:JSONDictionary];
+                completionBlock(metadata, nil);
+            } onMainThread:isMainThread];
         };
         
         metadataOperation.failure = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSDictionary *JSONDictionary) {
             NSLog(@"FAILURE!");
+            [BOXDispatchHelper callCompletionBlock:^{
+                completionBlock(nil, error);
+            } onMainThread:isMainThread];
         };
     }
     

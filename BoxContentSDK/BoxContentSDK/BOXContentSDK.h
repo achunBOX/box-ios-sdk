@@ -125,5 +125,6 @@
 #import "BOXGroup.h"
 #import "BOXFileVersion.h"
 #import "BOXAssetInputStream.h"
+#import "BOXMetadata.h"
 
 
