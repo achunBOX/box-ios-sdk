@@ -10,9 +10,17 @@
 #import "BOXMetadataRequest.h"
 
 @class BOXMetadataRequest;
+@class BOXMetadataDeleteRequest;
+@class BOXMetadataCreateRequest;
 
 @interface BOXContentClient (Metadata)
 
-- (BOXMetadataRequest *)metadataWithFileID:(NSString *)fileID template:(NSString *)template;
+- (BOXMetadataRequest *)metadataInfoWithFileID:(NSString *)fileID template:(NSString *)template;
+- (BOXMetadataRequest *)metadataInfoWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template;
+
+- (BOXMetadataDeleteRequest *)metadataDeleteWithFileID:(NSString *) fileID template:(NSString *)template;
+- (BOXMetadataDeleteRequest *)metadataDeleteWithFileID:(NSString *) fileID scope:(NSString *)scope template:(NSString *)template;
+
+- (BOXMetadataCreateRequest *)metadataCreateWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template info:(NSDictionary *)info;
 
 @end

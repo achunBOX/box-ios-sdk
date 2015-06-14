@@ -95,6 +95,9 @@
 #import "BOXTrashedFolderRestoreRequest.h"
 #import "BOXTrashedFileRestoreRequest.h"
 #import "BOXItemShareRequest.h"
+#import "BOXMetadataRequest.h"
+#import "BOXMetadataDeleteRequest.h"
+#import "BOXMetadataCreateRequest.h"
 
 // API Operation queues
 #import "BOXAPIQueueManager.h"

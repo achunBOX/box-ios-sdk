@@ -10,4 +10,11 @@
 
 @interface BOXMetadataCreateRequest : BOXRequest
 
+@property (nonatomic, readwrite, strong) NSArray *notMatchingEtags;
+
+- (instancetype)initWithFileID:(NSString *)fileID template:(NSString *)template info:(NSDictionary *)info;
+- (instancetype)initWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template info:(NSDictionary *)info;
+
+- (void)performRequestWithCompletion:(BOXMetadataBlock)completionBlock;
+
 @end

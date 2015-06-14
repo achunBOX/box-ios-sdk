@@ -11,7 +11,7 @@
 
 @implementation BOXContentClient (Metadata)
 
-- (BOXMetadataRequest *)metadataWithFileID:(NSString *)fileID template:(NSString *)template
+- (BOXMetadataRequest *)metadataInfoWithFileID:(NSString *)fileID template:(NSString *)template
 {
     BOXMetadataRequest *request = [[BOXMetadataRequest alloc]initWithFileID:fileID template:template];
     [self prepareRequest:request];
@@ -19,9 +19,33 @@
     return request;
 }
 
-- (BOXMetadataRequest *)metadataWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template
+- (BOXMetadataRequest *)metadataInfoWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template
 {
     BOXMetadataRequest *request = [[BOXMetadataRequest alloc]initWithFileID:fileID scope:scope template:template];
+    [self prepareRequest:request];
+    
+    return request;
+}
+
+- (BOXMetadataDeleteRequest *)metadataDeleteWithFileID:(NSString *)fileID template:(NSString *)template
+{
+    BOXMetadataDeleteRequest *request = [[BOXMetadataDeleteRequest alloc]initWithFileID:fileID template:template];
+    [self prepareRequest:request];
+    
+    return request;
+}
+
+- (BOXMetadataDeleteRequest *)metadataDeleteWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template
+{
+    BOXMetadataDeleteRequest *request = [[BOXMetadataDeleteRequest alloc]initWithFileID:fileID scope:scope template:template];
+    [self prepareRequest:request];
+    
+    return request;
+}
+
+- (BOXMetadataCreateRequest *)metadataCreateWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template info:(NSDictionary *)info
+{
+    BOXMetadataCreateRequest *request = [[BOXMetadataCreateRequest alloc]initWithFileID:fileID scope:scope template:template info:info];
     [self prepareRequest:request];
     
     return request;

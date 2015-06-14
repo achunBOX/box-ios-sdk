@@ -10,4 +10,18 @@
 
 @interface BOXRequest (Metadata)
 
+- (NSURL *)URLWithResource:(NSString *)resource
+                        ID:(NSString *)ID
+               subresource:(NSString *)subresource
+                     scope:(NSString *)scope
+                  template:(NSString *)template;
+
+- (NSURL *)URLWithBaseURL:(NSString *)baseURL
+               APIVersion:(NSString *)APIVersion
+                 resource:(NSString *)resource
+                       ID:(NSString *)ID
+              subresource:(NSString *)subresource
+                    scope:(NSString *)scope
+                 template:(NSString *)template;
+
 @end
