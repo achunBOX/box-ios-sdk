@@ -14,15 +14,20 @@
 @property (nonatomic, readwrite, strong) NSString *fileID;
 @property (nonatomic, readwrite, strong) NSString *scope;
 @property (nonatomic, readwrite, strong) NSString *template;
-@property (nonatomic, readwrite, strong) NSDictionary *info;
+@property (nonatomic, readwrite, strong) NSArray *info;
 
 @end
 
 @implementation BOXMetadataCreateRequest
 
-- (instancetype)initWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template info:(NSDictionary *)info
+- (instancetype)initWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template info:(NSArray *)info
 {
     if (self = [super init]) {
+        for (NSInteger i = 0; i < info.count; ++i) {
+            BOXAssert([info[i] isKindOfClass:[BOXMetadataTask class]],
+                      @"All entries in info must be of type BOXMetadataTask. info[%lu] is not of type BOXMetadataTask.", i);
+        }
+        
         self.fileID = fileID;
         self.scope = scope;
         self.template = template;
@@ -32,7 +37,7 @@
     return self;
 }
 
-- (instancetype)initWithFileID:(NSString *)fileID template:(NSString *)template info:(NSDictionary *)info
+- (instancetype)initWithFileID:(NSString *)fileID template:(NSString *)template info:(NSArray *)info
 {
     return [self initWithFileID:fileID scope:BOXAPIScopeEnterprise template:template info:info];
 }
@@ -47,10 +52,20 @@
     
     NSDictionary *queryParameters = nil;
     
+    NSMutableDictionary *bodyDictionary = [[NSMutableDictionary alloc]init];
+    for (BOXMetadataTask *task in self.info) {
+        NSString *key = task.path;
+        NSString *value = task.value;
+        
+        if (key && value) {
+            [bodyDictionary setObject:value forKey:key];
+        }
+    }
+    
     BOXAPIJSONOperation *JSONOperation = [self JSONOperationWithURL:URL
                                                          HTTPMethod:BOXAPIHTTPMethodPOST
                                               queryStringParameters:queryParameters
-                                                     bodyDictionary:self.info
+                                                     bodyDictionary:bodyDictionary
                                                    JSONSuccessBlock:nil
                                                        failureBlock:nil];
     

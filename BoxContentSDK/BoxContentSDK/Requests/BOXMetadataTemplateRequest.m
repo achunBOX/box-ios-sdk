@@ -1,37 +1,40 @@
 //
-//  BOXMetadataRequest.m
+//  BOXMetadataTemplateRequest.m
 //  BoxContentSDK
 //
-//  Created by Andrew Chun on 6/12/15.
+//  Created by Andrew Chun on 6/15/15.
 //  Copyright (c) 2015 Box. All rights reserved.
 //
 
-#import "BOXRequest_Private.h"
-#import "BOXMetadataRequest.h"
-#import "BOXMetadata.h"
-#import "BOXDispatchHelper.h"
+#import "BOXMetadataTemplateRequest.h"
 #import "BOXRequest+Metadata.h"
 
-@interface BOXMetadataRequest ()
+@interface BOXMetadataTemplateRequest ()
 
-@property (nonatomic, readwrite, strong) NSString *fileID;
-@property (nonatomic, readwrite, strong) NSString *template;
 @property (nonatomic, readwrite, strong) NSString *scope;
+@property (nonatomic, readwrite, strong) NSString *template;
 
 @end
 
-@implementation BOXMetadataRequest
+@implementation BOXMetadataTemplateRequest
 
-- (instancetype)initWithFileID:(NSString *)fileID template:(NSString *)template
+- (instancetype)init
 {
-    return [self initWithFileID:fileID scope:BOXAPIScopeEnterprise template:template];
+    return [self initWithScope:BOXAPIScopeEnterprise];
 }
 
-- (instancetype)initWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template
+- (instancetype)initWithScope:(NSString *)scope
 {
     if (self = [super init]) {
-        self.fileID = fileID;
         self.scope = scope;
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithScope:(NSString *)scope template:(NSString *)template
+{
+    if (self = [self initWithScope:scope]) {
         self.template = template;
     }
     
@@ -40,13 +43,12 @@
 
 - (BOXAPIOperation *)createOperation
 {
-    NSURL *URL = [self URLWithResource:BOXAPIResourceFiles
-                                    ID:self.fileID
-                           subresource:BOXAPISubresourceMetadata
-                                 scope:self.scope
+    NSURL *URL = [self URLWithResource:BOXAPIResourceMetadataTemplates
+                                    ID:nil
+                           subresource:nil
+                                 scope:BOXAPIScopeEnterprise
                               template:self.template];
     
-    // Are there query parameters for metedata?
     NSDictionary *queryParameters = nil;
     
     BOXAPIJSONOperation *JSONOperation = [self JSONOperationWithURL:URL
@@ -56,7 +58,6 @@
                                                    JSONSuccessBlock:nil
                                                        failureBlock:nil];
     
-    // Ask Tom about this.
     if ([self.notMatchingEtags count] > 0) {
         for (NSString *notMatchingEtags in self.notMatchingEtags) {
             [JSONOperation.APIRequest addValue:notMatchingEtags forHTTPHeaderField:BOXAPIHTTPHeaderIfNoneMatch];
@@ -66,7 +67,7 @@
     return JSONOperation;
 }
 
-- (void)performRequestWithCompletion:(BOXMetadatasBlock)completionBlock
+- (void)performRequestWithCompletion:(BOXMetadataTemplateBlock)completionBlock
 {
     BOOL isMainThread = [NSThread isMainThread];
     BOXAPIJSONOperation *metadataOperation = (BOXAPIJSONOperation *)self.operation;
@@ -75,17 +76,17 @@
         metadataOperation.success = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSDictionary *JSONDictionary) {
             NSLog(@"SUCCESS!");
             [BOXDispatchHelper callCompletionBlock:^{
+                NSMutableArray *metadataTemplates = [[NSMutableArray alloc]init];
                 NSArray *entries = JSONDictionary[@"entries"];
                 if (entries) {
-                    NSMutableArray *metadatas = [[NSMutableArray alloc]init];
-                    for (NSDictionary *currMetadata in entries) {
-                        BOXMetadata *metadata = [[BOXMetadata alloc]initWithJSON:currMetadata];
-                        [metadatas addObject:metadata];
+                    for (NSDictionary *currTemplate in entries) {
+                        BOXMetadataTemplate *template = [[BOXMetadataTemplate alloc]initWithJSON:currTemplate];
+                        [metadataTemplates addObject:template];
                     }
-                    completionBlock(metadatas, nil);
+                    completionBlock(metadataTemplates, nil);
                 } else {
-                    BOXMetadata *metadata = [[BOXMetadata alloc]initWithJSON:JSONDictionary];
-                    completionBlock(@[metadata], nil);
+                    BOXMetadataTemplate *template = [[BOXMetadataTemplate alloc]initWithJSON:JSONDictionary];
+                    completionBlock(@[template], nil);
                 }
             } onMainThread:isMainThread];
         };

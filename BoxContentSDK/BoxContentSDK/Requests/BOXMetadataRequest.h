@@ -14,6 +14,6 @@
 
 - (instancetype)initWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template;
 - (instancetype)initWithFileID:(NSString *)fileID template:(NSString *)template;
-- (void)performRequestWithCompletion:(BOXMetadataBlock)completionBlock;
+- (void)performRequestWithCompletion:(BOXMetadatasBlock)completionBlock;
 
 @end

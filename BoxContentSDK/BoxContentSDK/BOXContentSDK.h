@@ -98,6 +98,8 @@
 #import "BOXMetadataRequest.h"
 #import "BOXMetadataDeleteRequest.h"
 #import "BOXMetadataCreateRequest.h"
+#import "BOXMetadataUpdateRequest.h"
+#import "BOXMetadataTemplateRequest.h"
 
 // API Operation queues
 #import "BOXAPIQueueManager.h"
@@ -129,5 +131,9 @@
 #import "BOXFileVersion.h"
 #import "BOXAssetInputStream.h"
 #import "BOXMetadata.h"
+#import "BOXMetadataTask.h"
+#import "BOXMetadataUpdateTask.h"
+#import "BOXMetadataTemplate.h"
+#import "BOXMetadataTemplateField.h"
 
 

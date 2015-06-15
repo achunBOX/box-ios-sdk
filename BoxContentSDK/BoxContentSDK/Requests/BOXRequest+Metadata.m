@@ -51,6 +51,10 @@
             URLString = [URLString stringByAppendingFormat:@"/%@", scope];
             if (template) {
                 URLString = [URLString stringByAppendingFormat:@"/%@", template];
+                
+                if ([resource isEqualToString:BOXAPIResourceMetadataTemplates]) {
+                    URLString = [URLString stringByAppendingString:@"/schema"];
+                }
             }
         }
     }
@@ -59,5 +63,7 @@
     
     return [[NSURL alloc]initWithString:URLString];
 }
+
+
 
 @end

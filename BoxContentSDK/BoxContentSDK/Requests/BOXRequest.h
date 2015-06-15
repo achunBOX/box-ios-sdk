@@ -58,6 +58,10 @@ typedef void (^BOXFileVersionBlock)(BOXFileVersion *fileVersion, NSError *error)
 
 typedef void (^BOXMetadataBlock)(BOXMetadata *metadata, NSError *error);
 
+typedef void (^BOXMetadatasBlock)(NSArray *metadatas, NSError *error);
+
+typedef void (^BOXMetadataTemplateBlock) (NSArray *metadataTemplates, NSError *error);
+
 @interface BOXRequest : NSObject
 
 @property (nonatomic, readwrite, strong) NSString *APIVersion;
