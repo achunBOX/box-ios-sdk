@@ -19,9 +19,12 @@
 - (instancetype)initWithOperation:(BOXMetadataUpdateOps)operation path:(NSString *)path value:(NSString *)value validation:(BOOL)validate
 {
     if (self = [self initWithPath:path value:value validation:NO]) {
-        NSString *formatString = @"/%@";
-        if ([path characterAtIndex:0] == '/') {
-            formatString = @"%@";
+        NSString *formatString = nil;
+        if (path) {
+            formatString = @"/%@";
+            if ([path characterAtIndex:0] == '/') {
+                formatString = @"%@";
+            }
         }
         
         self.path = [NSString stringWithFormat:formatString, path];
@@ -37,7 +40,7 @@
 
 - (void)validate
 {
-    BOXAssert([self BOXMetadataUpdateOpsToString:self.operation], @"The operation parameter for BOXMetadataUpdateTask cannot be nil");
+    BOXAssert([self BOXMetadataUpdateOpsToString:self.operation], @"The operation parameter for BOXMetadataUpdateTask cannot be nil. Please make sure to use an ENUM within BOXMetadataUpdateOps.");
     BOXAssert(self.path, @"The path parameter for BOXMetadataUpdateTask cannot be nil");
     BOXAssert(!(self.operation == BOXMetadataUpdateADD || self.operation == BOXMetadataUpdateREPLACE) || self.value, @"The value parameter cannot be nil when using BOXMetadataUpdateADD or BOXMetadataUpdateREPLACE.");
 }
