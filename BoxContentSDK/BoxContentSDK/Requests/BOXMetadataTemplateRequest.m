@@ -11,9 +11,6 @@
 
 @interface BOXMetadataTemplateRequest ()
 
-@property (nonatomic, readwrite, strong) NSString *scope;
-@property (nonatomic, readwrite, strong) NSString *template;
-
 @end
 
 @implementation BOXMetadataTemplateRequest
@@ -43,6 +40,8 @@
 
 - (BOXAPIOperation *)createOperation
 {
+    BOXAssert(self.scope, @"BOXMetadataTemplateRequest Scope must not be nil.");
+    
     NSURL *URL = [self URLWithResource:BOXAPIResourceMetadataTemplates
                                     ID:nil
                            subresource:nil
@@ -67,7 +66,7 @@
     return JSONOperation;
 }
 
-- (void)performRequestWithCompletion:(BOXMetadataTemplateBlock)completionBlock
+- (void)performRequestWithCompletion:(BOXMetadataTemplatesBlock)completionBlock
 {
     BOOL isMainThread = [NSThread isMainThread];
     BOXAPIJSONOperation *metadataOperation = (BOXAPIJSONOperation *)self.operation;

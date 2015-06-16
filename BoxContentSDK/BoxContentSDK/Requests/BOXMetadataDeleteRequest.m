@@ -12,8 +12,6 @@
 @interface BOXMetadataDeleteRequest ()
 
 @property (nonatomic, readwrite, strong) NSString *fileID;
-@property (nonatomic, readwrite, strong) NSString *scope;
-@property (nonatomic, readwrite, strong) NSString *template;
 
 @end
 
@@ -37,6 +35,10 @@
 
 - (BOXAPIOperation *)createOperation
 {
+    BOXAssert(self.fileID, @"BOXMetadataDeleteRequest FileID must not be nil");
+    BOXAssert(self.scope, @"BOXMetadataDeleteRequest Scope must not be nil");
+    BOXAssert(self.template, @"BOXMetadataDeleteRequest Template must not be nil");
+    
     NSURL *URL = [self URLWithResource:BOXAPIResourceFiles
                                     ID:self.fileID
                            subresource:BOXAPISubresourceMetadata

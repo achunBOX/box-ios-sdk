@@ -12,10 +12,12 @@
 @interface BOXMetadataTemplateRequest : BOXRequest
 
 @property (nonatomic, readwrite, strong) NSArray *notMatchingEtags;
+@property (nonatomic, readwrite, strong) NSString *scope;
+@property (nonatomic, readwrite, strong) NSString *template;
 
 - (instancetype)initWithScope:(NSString *)scope template:(NSString *)template;
 - (instancetype)initWithScope:(NSString *)scope;
 - (instancetype)init;
-- (void)performRequestWithCompletion:(BOXMetadataTemplateBlock)completionBlock;
+- (void)performRequestWithCompletion:(BOXMetadataTemplatesBlock)completionBlock;
 
 @end

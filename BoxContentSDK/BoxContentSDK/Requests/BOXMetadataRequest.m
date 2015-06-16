@@ -15,8 +15,6 @@
 @interface BOXMetadataRequest ()
 
 @property (nonatomic, readwrite, strong) NSString *fileID;
-@property (nonatomic, readwrite, strong) NSString *template;
-@property (nonatomic, readwrite, strong) NSString *scope;
 
 @end
 
@@ -40,6 +38,9 @@
 
 - (BOXAPIOperation *)createOperation
 {
+    BOXAssert(self.fileID, @"BOXMetadataRequest FileID must be not be nil.");
+    BOXAssert((self.scope && self.template) || (!self.scope && !self.template), @"BOXMetadataRequest Scope and Template must both be set or both be nil");
+    
     NSURL *URL = [self URLWithResource:BOXAPIResourceFiles
                                     ID:self.fileID
                            subresource:BOXAPISubresourceMetadata

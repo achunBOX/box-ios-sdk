@@ -13,9 +13,6 @@
 @interface BOXMetadataUpdateRequest ()
 
 @property (nonatomic, readwrite, strong) NSString *fileID;
-@property (nonatomic, readwrite, strong) NSString *scope;
-@property (nonatomic, readwrite, strong) NSString *template;
-@property (nonatomic, readwrite, strong) NSArray *updateInfo;
 
 @end
 
@@ -29,11 +26,6 @@
 - (instancetype)initWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template updateInfo:(NSArray *)updateInfo
 {
     if (self = [super init]) {
-        for (NSInteger i = 0; i < updateInfo.count; ++i) {
-            BOXAssert([updateInfo[i] isKindOfClass:[BOXMetadataUpdateTask class]],
-                      @"All entries in updateInfo must be of type BOXMetadataUpdateTask. updateInfo[%lu] is not of type BOXMetadataUpdateTask.", i);
-        }
-        
         self.fileID = fileID;
         self.scope = scope;
         self.template = template;
@@ -45,6 +37,11 @@
 
 - (BOXAPIOperation *)createOperation
 {
+    BOXAssert(self.fileID, @"BOXMetadataUpdateRequest FileID must not be nil.");
+    BOXAssert(self.scope, @"BOXMetadataUpdateRequest Scope must not be nil.");
+    BOXAssert(self.template, @"BOXMetadataUpdateRequest Template must not be nil.");
+    BOXAssert(self.updateInfo, @"BOXMetadataUpdateRequest UpdateInfo must not be nil.");
+    
     NSURL *URL = [self URLWithResource:BOXAPIResourceFiles
                                     ID:self.fileID
                            subresource:BOXAPISubresourceMetadata
@@ -114,6 +111,15 @@
     }
     
     [self performRequest];
+}
+
+- (void)setUpdateInfo:(NSArray *)updateInfo
+{
+    for (NSInteger i = 0; i < updateInfo.count; ++i) {
+        BOXAssert([updateInfo[i] isKindOfClass:[BOXMetadataUpdateTask class]],
+                  @"All entries in updateInfo must be of type BOXMetadataUpdateTask. updateInfo[%lu] is not of type BOXMetadataUpdateTask.", i);
+    }
+    _updateInfo = updateInfo;
 }
 
 @end

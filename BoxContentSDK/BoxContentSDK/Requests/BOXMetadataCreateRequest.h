@@ -11,6 +11,9 @@
 @interface BOXMetadataCreateRequest : BOXRequest
 
 @property (nonatomic, readwrite, strong) NSArray *notMatchingEtags;
+@property (nonatomic, readwrite, strong) NSString *scope;
+@property (nonatomic, readwrite, strong) NSString *template;
+@property (nonatomic, readwrite, strong) NSArray *info;
 
 - (instancetype)initWithFileID:(NSString *)fileID template:(NSString *)template info:(NSArray *)info;
 - (instancetype)initWithFileID:(NSString *)fileID scope:(NSString *)scope template:(NSString *)template info:(NSArray *)info;
