@@ -26,6 +26,8 @@
 /**
  * The custom fields available in the template. Stored as key/value pairs
  * such that the values can either be a single option or many options in a list.
+ *
+ * **NOTE** All fields will be of type BOXMetadataTemplateField.
  */
 @property (nonatomic, readwrite, strong) NSArray *fields;
 
