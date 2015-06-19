@@ -57,6 +57,7 @@ You can find guides and tutorials in the `doc` directory.
 
 * [App Setup](doc/Setup.md)
 * [Authentication](doc/Authentication.md)
+* [App Users](doc/AppUsers.md)
 * [Files](doc/Files.md)
 * [Folders](doc/Folders.md)
 * [Comments](doc/Comments.md)
@@ -64,6 +65,7 @@ You can find guides and tutorials in the `doc` directory.
 * [Events](doc/Events.md)
 * [Search](doc/Search.md)
 * [Users](doc/Users.md)
+* [Metadata](doc/metadata.md)
 
 
 Contributing
